@@ -1,0 +1,9 @@
+[Core]
+Name = Alias
+Module = alias
+
+[Documentation]
+Description = Alias command for Errbot.
+
+[Python]
+Version = 2+

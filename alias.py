@@ -10,7 +10,7 @@ class Alias(BotPlugin):
         command = mess.body.split(' ', 1)
 
         if len(command) > 0:
-            alias = command[0].strip(self._bot.bot_config.BOT_PREFIX)
+            alias = command[0].strip(self._bot.prefix)
             args = ''
 
             if len(command) > 1:
@@ -18,7 +18,7 @@ class Alias(BotPlugin):
 
             if alias in self:
                 mess.body = u'{prefix}{command} {args}'.format(
-                    prefix=self._bot.bot_config.BOT_PREFIX,
+                    prefix=self._bot.prefix,
                     command=self[alias],
                     args=args
                 )
@@ -35,7 +35,7 @@ class Alias(BotPlugin):
         """Define a new alias."""
         if len(args) < 2:
             return u'usage: {prefix}alias add <name> <command>'.format(
-                prefix=self._bot.bot_config.BOT_PREFIX
+                prefix=self._bot.prefix
             )
 
         name = args.pop(0)
@@ -55,7 +55,7 @@ class Alias(BotPlugin):
 
         if not name:
             return u'usage: {prefix}alias remove <name>'.format(
-                prefix=self._bot.bot_config.BOT_PREFIX
+                prefix=self._bot.prefix
             )
 
         try:
@@ -64,7 +64,7 @@ class Alias(BotPlugin):
         except KeyError:
             return 'uThat alias does not exist. ' \
                    'Use {prefix}alias list to see all aliases.'.format(
-                       prefix=self._bot.bot_config.BOT_PREFIX
+                       prefix=self._bot.prefix
                    )
 
     @botcmd
@@ -73,12 +73,12 @@ class Alias(BotPlugin):
         if len(self) > 0:
             return u'All Aliases:\n\n' + u'\n'.join(
                 ['- {prefix}{alias} = {prefix}{command}'.format(
-                    prefix=self._bot.bot_config.BOT_PREFIX,
+                    prefix=self._bot.prefix,
                     alias=alias,
                     command=self[alias]
                 ) for alias in self])
         else:
             return u'No aliases found. ' \
                    'Use {prefix}alias add to define one.'.format(
-                       prefix=self._bot.bot_config.BOT_PREFIX
+                       prefix=self._bot.prefix
                    )

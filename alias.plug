@@ -3,7 +3,7 @@ Name = Alias
 Module = alias
 
 [Documentation]
-Description = Alias command for Errbot.
+Description = Use shortcuts for long commands.
 
 [Python]
 Version = 2+

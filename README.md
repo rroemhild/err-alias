@@ -1,14 +1,14 @@
 err-alias
 =========
 
-Errbot alias plugin. Short complex commands to remember-able aliases.
+Errbot alias plugin. Use shortcuts for long commands.
 
 * Only admins are allowed to add/remove aliases.
 * Currently not working with alternative prefix
 
 
-Example
--------
+Examples
+--------
 
 Add alias _r_ for _restart_:
 

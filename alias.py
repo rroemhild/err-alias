@@ -3,7 +3,7 @@ from errbot import BotPlugin, botcmd
 
 class Alias(BotPlugin):
     """
-    Alias command for Errbot.
+    Use shortcuts for long commands.
     """
 
     def callback_message(self, mess):
@@ -17,10 +17,10 @@ class Alias(BotPlugin):
                 args = command[1]
 
             if alias in self:
-                mess.body = u'{0}{1} {2}'.format(
-                    self._bot.bot_config.BOT_PREFIX,
-                    self[alias],
-                    args
+                mess.body = u'{prefix}{command} {args}'.format(
+                    prefix=self._bot.bot_config.BOT_PREFIX,
+                    command=self[alias],
+                    args=args
                 )
                 self._bot.process_message(mess)
 
@@ -34,37 +34,51 @@ class Alias(BotPlugin):
     def alias_add(self, mess, args):
         """Define a new alias."""
         if len(args) < 2:
-            return 'usage: !alias add <name> <command>'
+            return u'usage: {prefix}alias add <name> <command>'.format(
+                prefix=self._bot.bot_config.BOT_PREFIX
+            )
 
         name = args.pop(0)
         command = ' '.join(args)
 
         if name in self:
-            return 'An alias with that name already exists.'
+            return u'An alias with that name already exists.'
 
         self[name] = command
 
-        return 'Alias created.'
+        return u'Alias created.'
 
     @botcmd(admin_only=True)
     def alias_remove(self, mess, args):
+        """Remove an alias."""
         name = args
 
         if not name:
-            return 'usage: !alias remove <name>'
+            return u'usage: {prefix}alias remove <name>'.format(
+                prefix=self._bot.bot_config.BOT_PREFIX
+            )
 
         try:
             del self[name]
-            return 'Alias removed.'
+            return u'Alias removed.'
         except KeyError:
-            return 'That alias does not exist. ' \
-                   'Use !alias list to see all aliases.'
+            return 'uThat alias does not exist. ' \
+                   'Use {prefix}alias list to see all aliases.'.format(
+                       prefix=self._bot.bot_config.BOT_PREFIX
+                   )
 
     @botcmd
     def alias_list(self, mess, args):
         """List all aliases."""
         if len(self) > 0:
-            return 'All Aliases :\n' + u'\n'.join(
-                ['!' + alias + ' = !' + self[alias] for alias in self])
+            return u'All Aliases:\n\n' + u'\n'.join(
+                ['- {prefix}{alias} = {prefix}{command}'.format(
+                    prefix=self._bot.bot_config.BOT_PREFIX,
+                    alias=alias,
+                    command=self[alias]
+                ) for alias in self])
         else:
-            return 'No aliases found. Use !alias add to define one.'
+            return u'No aliases found. ' \
+                   'Use {prefix}alias add to define one.'.format(
+                       prefix=self._bot.bot_config.BOT_PREFIX
+                   )

@@ -7,3 +7,6 @@ Description = Use shortcuts for long commands.
 
 [Python]
 Version = 2+
+
+[Errbot]
+Min=3.0.0

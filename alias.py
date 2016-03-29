@@ -62,7 +62,7 @@ class Alias(BotPlugin):
             del self[name]
             return u'Alias removed.'
         except KeyError:
-            return 'uThat alias does not exist. ' \
+            return u'That alias does not exist. ' \
                    'Use {prefix}alias list to see all aliases.'.format(
                        prefix=self._bot.prefix
                    )

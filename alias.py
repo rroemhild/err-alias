@@ -30,7 +30,7 @@ class Alias(BotPlugin):
         if len(args) < 2:
             return self.alias_list(mess, args)
 
-    @botcmd(split_args_with=None, admin_only=True)
+    @botcmd(split_args_with=None)
     def alias_add(self, mess, args):
         """Define a new alias."""
         if len(args) < 2:
@@ -48,7 +48,7 @@ class Alias(BotPlugin):
 
         return u'Alias created.'
 
-    @botcmd(admin_only=True)
+    @botcmd
     def alias_remove(self, mess, args):
         """Remove an alias."""
         name = args

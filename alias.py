@@ -7,6 +7,8 @@ class Alias(BotPlugin):
     """
 
     def callback_message(self, mess):
+        """Re-inject defined aliases to process_message"""
+
         command = mess.body.split(' ', 1)
 
         if len(command) > 0:
@@ -32,7 +34,15 @@ class Alias(BotPlugin):
 
     @botcmd(split_args_with=None)
     def alias_add(self, mess, args):
-        """Define a new alias."""
+        """Define a new alias.
+
+        Usage:
+        !alias add <name> <command> [<args>]
+
+        Examples
+        !alias add s status
+        !alias add pr plugin reload
+        """
         if len(args) < 2:
             return u'usage: {prefix}alias add <name> <command>'.format(
                 prefix=self._bot.prefix
@@ -50,7 +60,11 @@ class Alias(BotPlugin):
 
     @botcmd
     def alias_remove(self, mess, args):
-        """Remove an alias."""
+        """Remove an alias.
+
+        Usage:
+        !alias remove <name>
+        """
         name = args
 
         if not name:
